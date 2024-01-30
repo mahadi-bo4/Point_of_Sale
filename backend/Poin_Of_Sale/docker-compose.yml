@@ -12,14 +12,14 @@ services:
       MYSQL_PORT: 3306
       MYSQL_USER: user
       MYSQL_PASSWORD: root
-      MYSQL_DATABASE: vristo
+      MYSQL_DATABASE:
   mysql_db:
     image: "mysql:8.0.32"
     restart: always
     ports:
       - 3307:3306
     environment:
-      MYSQL_DATABASE: vristo
+      MYSQL_DATABASE:
       MYSQL_USER: user
       MYSQL_PASSWORD: root
       MYSQL_ROOT_PASSWORD: root

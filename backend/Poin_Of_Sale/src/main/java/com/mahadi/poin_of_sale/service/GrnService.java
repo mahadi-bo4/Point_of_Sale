@@ -149,7 +149,10 @@ public class GrnService {
     }
 
     public Page<GrnResponseDTO> getAllGrns(SearchGrnInvoiceDTO searchGrnInvoiceDTO) {
-        PageRequest pageRequest = PageRequest.of(searchGrnInvoiceDTO.page(), searchGrnInvoiceDTO.size(), Sort.by("dateTime").descending());
+
+        PageRequest pageRequest = PageRequest.of(searchGrnInvoiceDTO
+                .page(), searchGrnInvoiceDTO
+                .size(), Sort.by("dateTime").descending());
 
         if (searchGrnInvoiceDTO.startDate() == null && searchGrnInvoiceDTO.endDate() == null) {
             return grnRepository.findAll(pageRequest).map(grn -> GrnResponseDTO.builder()
@@ -253,7 +256,10 @@ public class GrnService {
             AtomicInteger count = new AtomicInteger(1);
 
             grn.getGrnItems().forEach(item -> {
-                grnReportList.add(GRNReport.builder().id(count.getAndIncrement()).productName(item.getStock().getProduct().getName()).quantity(item.getQuantity()).price(String.valueOf(item.getBuyingPrice())).total(String.valueOf(item.getQuantity() * item.getBuyingPrice())).build());
+                grnReportList.add(GRNReport.builder().id(count.getAndIncrement())
+                        .productName(item.getStock().getProduct().getName()).quantity(item.getQuantity())
+                        .price(String.valueOf(item.getBuyingPrice()))
+                        .total(String.valueOf(item.getQuantity() * item.getBuyingPrice())).build());
             });
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JRBeanCollectionDataSource(grnReportList));
